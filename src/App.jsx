@@ -16,6 +16,7 @@ import Register from './pages/auth/Register';
 import Dashboard from './pages/dashboard/Dashboard';
 import NotFound from './pages/NotFound';
 import Products from './pages/dashboard/Products';
+import Alerts from './pages/dashboard/Alerts';
 
 function App() {
   return (
@@ -47,14 +48,7 @@ function App() {
 
         {/* Placeholder routes: pages arrive in phases D, E, F */}
         <Route path='/products' element={<Products />} />
-        <Route
-          path='/alerts'
-          element={
-            <div className='card p-8 text-center text-text-muted'>
-              Alerts page coming in Phase E
-            </div>
-          }
-        />
+        <Route path='/alerts' element={<Alerts />} />
         <Route
           path='/reports'
           element={
