@@ -2,24 +2,28 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 
 // layouts
 import AuthLayout from './components/layouts/AuthLayout';
+import DashboardLayout from './components/layouts/DashboardLayout';
 
 // guards
 import PublicRoute from './components/router/PublicRoute';
 import ProtectedRoute from './components/router/ProtectedRoute';
 
-// pages
+// auth pages
 import Login from './pages/auth/Login';
 import Register from './pages/auth/Register';
+
+// dashboard pages (placeholders for phases D, E, F arrive next)
+import Dashboard from './pages/dashboard/Dashboard';
 import NotFound from './pages/NotFound';
+import Products from './pages/dashboard/Products';
 
 function App() {
   return (
     <Routes>
-      {/* Visiting the root redirects you to dashboard (which
-          ProtectedRoute redirects to /login if not logged in) */}
+      {/* Root redirects into the app */}
       <Route path='/' element={<Navigate to='/dashboard' replace />} />
 
-      {/* Auth routes: only accessible when logged OUT */}
+      {/* Auth routes: only when logged out */}
       <Route
         element={
           <PublicRoute>
@@ -31,21 +35,36 @@ function App() {
         <Route path='/register' element={<Register />} />
       </Route>
 
-      {/* Protected dashboard shell: Phase C fills this in */}
+      {/* Dashboard routes: only when logged in */}
       <Route
-        path='/dashboard'
         element={
           <ProtectedRoute>
-            <div className='min-h-screen bg-bg flex items-center justify-center'>
-              <p className='text-text-heading font-semibold text-lg'>
-                Dashboard shell coming in Phase C
-              </p>
-            </div>
+            <DashboardLayout />
           </ProtectedRoute>
         }
-      />
+      >
+        <Route path='/dashboard' element={<Dashboard />} />
 
-      {/* 404 */}
+        {/* Placeholder routes: pages arrive in phases D, E, F */}
+        <Route path='/products' element={<Products />} />
+        <Route
+          path='/alerts'
+          element={
+            <div className='card p-8 text-center text-text-muted'>
+              Alerts page coming in Phase E
+            </div>
+          }
+        />
+        <Route
+          path='/reports'
+          element={
+            <div className='card p-8 text-center text-text-muted'>
+              Reports page coming in Phase F
+            </div>
+          }
+        />
+      </Route>
+
       <Route path='*' element={<NotFound />} />
     </Routes>
   );
